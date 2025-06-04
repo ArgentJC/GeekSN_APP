@@ -1,9 +1,11 @@
 body {
-    background-image: url('../assets/background_login.jpg'); /* Imagen de background para el login, la tenemos en el propio proyecto */
+    margin: 0;
+    padding: 0;
+    background-image: url('../assets/background_login.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    height: 100vh;
+    min-height: 100vh; 
     display: flex;
     flex-direction: column;
 }
@@ -46,7 +48,7 @@ body {
 .login-btn {
     width: 100%;
     padding: 0.8rem;
-    background-color: #4a90e2;
+    background-color: #b400ba;
     color: white;
     border: none;
     border-radius: 5px;
@@ -56,7 +58,7 @@ body {
 }
 
 .login-btn:hover {
-    background-color: #357abd;
+    background-color: #8e0093;
 }
 
 .links-container {
@@ -65,7 +67,7 @@ body {
 }
 
 .links-container a {
-    color: #4a90e2;
+    color: #8e0093;
     text-decoration: none;
     margin: 0 10px;
 }

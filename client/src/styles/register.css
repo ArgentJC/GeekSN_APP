@@ -1,9 +1,11 @@
 body {
-    background-image: url('../assets/background_login.jpg'); /* Imagen de background para el login, la tenemos en el propio proyecto */
+    margin: 0;
+    padding: 0;
+    background-image: url('../assets/background_login.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -11,10 +13,10 @@ body {
 .register-container {
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
-    padding: 2rem;
-    width: 100%;
+    padding: 2.5rem;
+    width: 90%;
     max-width: 600px;
-    margin: auto;
+    margin: 90px auto;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
@@ -22,7 +24,8 @@ body {
     text-align: center;
     margin-bottom: 2rem;
     color: #333;
-    font-size: 1.8rem;
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 .form-group {
@@ -33,6 +36,7 @@ body {
     display: block;
     margin-bottom: 0.5rem;
     color: #333;
+    font-weight: 500;
 }
 
 .form-group input {
@@ -41,21 +45,72 @@ body {
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #b400ba;
+    box-shadow: 0 0 0 2px rgba(180, 0, 186, 0.1);
+}
+
+.split {
+    display: flex;
+    gap: 1rem;
+}
+
+.split-item {
+    flex: 1;
 }
 
 .register-btn {
     width: 100%;
-    padding: 0.8rem;
+    padding: 1rem;
     background-color: #b400ba;
     color: white;
     border: none;
     border-radius: 5px;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    font-weight: 500;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-top: 1rem;
 }
 
 .register-btn:hover {
-    background-color: #f706ff;
+    background-color: #8e0093;
 }
 
+.links-container {
+    margin-top: 1.5rem;
+    text-align: center;
+    color: #666;
+}
+
+.links-container a {
+    color: #b400ba;
+    text-decoration: none;
+    margin-left: 0.5rem;
+    font-weight: 500;
+}
+
+.links-container a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .register-container {
+        width: 95%;
+        padding: 1.5rem;
+        margin: 70px auto;
+    }
+
+    .split {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+}
