@@ -18,8 +18,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registro" element={<RegistroPage />} />
-          {/* Define otras rutas aquí */}
-          {/* <Route path="/cambio-contrasenia" element={<CambioContraseniaPage />} /> */}
+          <Route path="/cambio-contrasenia" element={<CambioContraseniaPage />} />
           {/* <Route path="/" element={<HomePage />} /> */}
           {/* <Route path="/dashboard" element={<DashboardPage />} /> */}
         </Routes>

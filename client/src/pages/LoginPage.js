@@ -1,4 +1,3 @@
-// client/src/pages/LoginPage.js
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // useNavigate para redirigir
 import { loginUser } from '../services/authService'; // Importamos la función del servicio
