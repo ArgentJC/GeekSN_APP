@@ -1,0 +1,26 @@
+/* Estilos para el navbar */
+
+.navbar {
+    background-color: #1a1a1a;
+    padding: 1rem;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+    font-family: 'Russo One', sans-serif;
+}
+
+/* Estilo global para el cuerpo y el font */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
