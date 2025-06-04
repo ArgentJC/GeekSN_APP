@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'; 
 import Navbar from './components/NavBar'; // Tu componente de barra de navegación
 import LoginPage from './pages/LoginPage';
 import RegistroPage from './pages/RegistroPage';
@@ -16,6 +16,7 @@ function App() {
       {/* min-h-0 es importante para que flex-grow funcione correctamente en algunos navegadores */}
       <div className="flex flex-col flex-grow items-center justify-center min-h-0">
         <Routes>
+          <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registro" element={<RegistroPage />} />
           <Route path="/cambio-contrasenia" element={<CambioContraseniaPage />} />
