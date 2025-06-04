@@ -2,13 +2,13 @@ const Usuario = require('../models/usuario');
 const bcrypt = require('bcryptjs');
 const { ValidationError } = require('sequelize');
 
-const usuarioRepository = {
+class usuarioRepository {
   /**
    * @description Función que crea un nuevo usuario en la base de datos
    * @param {*} usuarioData Datos del usuario a crear
    * @returns Usuario creado
    */
-  create: async function (usuarioData) {
+  static async create(usuarioData) {
     try {
       // Validar los datos del usuario
       if (!usuarioData.nombreUsuario || !usuarioData.password || !usuarioData.correo || !usuarioData.nombre || !usuarioData.apellido1) {
@@ -27,14 +27,14 @@ const usuarioRepository = {
       }
       throw new Error('Error al crear el usuario: ' + error.message);
     }
-  },
+  }
 
   /**
    * @description Función que busca un usuario en la base de datos
    * @param {*} conditions Condiciones de búsqueda
    * @returns Usuario encontrado
    */
-  findOne: async function (conditions) {
+  static async findOne(conditions) {
     try {
       return await Usuario.findOne({ where: conditions }); // Buscamos un usuario que cumpla con las condiciones dadas
     } catch (error) {

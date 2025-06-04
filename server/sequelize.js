@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize');
-require('dotenv').config({ path: './.env' }); // Asegúrate de que la ruta a .env sea correcta
+require('dotenv').config({ path: './.env' }); 
 
 const sequelize = new Sequelize(
     process.env.DB_NAME,
@@ -8,8 +8,8 @@ const sequelize = new Sequelize(
     {
         host: process.env.DB_HOST,
         port: process.env.DB_PORT,
-        dialect: 'mariadb', // O 'mariadb' si es MariaDB y quieres usar el driver 'mariadb'
-        logging: false, // Puedes poner true para ver las queries SQL que genera Sequelize
+        dialect: 'mariadb',
+        logging: false,
         pool: {
             max: 10,
             min: 0,

@@ -1,9 +1,19 @@
 const _usuarioRepository = require('../repositories/usuarioRepository');
 const { Op } = require('sequelize');
 
-const authService = {
-    register: async (usuario) => {
-        // Verificar si el usuario ya existe
+class authService {
+    /**
+     * @description Registra un nuevo usuario en la base de datos
+     * @param {Object} usuario - Objeto que contiene los datos del usuario a registrar
+     * @returns {Promise<Object>} - Resultado de la operación de registro
+     * @throws {Error} - Si el usuario ya existe o si ocurre un error al guardar
+     */
+    static async register(usuario)  { 
+        // Validar que el usuario no sea nulo
+        if (!usuario || !usuario.correo || !usuario.nombreUsuario || !usuario.password) {
+            throw new Error('Datos del usuario incompletos o nulos');
+        }
+        // Comprobar si el usuario ya existe en la base de datos
         const existingUser = await _usuarioRepository.findOne({
             where: {
                 [Op.or]: [

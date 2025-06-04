@@ -5,7 +5,7 @@ const _authService = require('../services/authService');
  * @module authController
  * @requires module:services/authService
  */
-const authController = {
+class authController {
     /**
      * @function register
      * @description Endpoint para registrar a un nuevo usuario dentro de nuestra aplicación.
@@ -20,7 +20,7 @@ const authController = {
      * @returns {Object} Respuesta JSON que indica el éxito o fracaso del registro.
      * @throws {Error} Si ocurre un error interno del servidor.
      */
-    register: async (req, res) => {
+    async register(req, res) {
         const { username, password, email, nombre, apellido1, apellido2 } = req.body; // Recogemos los datos del usuario desde la request.
 
         // Comprobamos que los datos del usuario no sean nulos o no existen

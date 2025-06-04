@@ -1,0 +1,5 @@
+{
+    "scripts": {
+        "start:dev": "concurrently \"cd server && nodemon src/app.js\" \"cd client && npm start\""
+    }
+}
