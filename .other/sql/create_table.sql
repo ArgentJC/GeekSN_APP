@@ -1,4 +1,11 @@
--- Revisión y mejoras del esquema SQL para MySQL/MariaDB
+-- Creación de la base de datos (la creamos solo si no existe)
+CREATE DATABASE IF NOT EXISTS geeksn_db;
+-- Uso de la base de datos creada
+USE geeksn_db;
+
+-----------------------------------------------------------------------
+-------- Creación de las tablas de la base de datos -------------------
+-----------------------------------------------------------------------
 
 -- AUTO_INCREMENT se usa para IDs auto-incrementales.
 -- TEXT es adecuado para cadenas de texto largas.
