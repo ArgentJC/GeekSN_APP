@@ -1,33 +1,38 @@
-``` mermaid
 erDiagram
 
     %% Definición de entidades y sus atributos
     %% Clave primaria de la futura base de datos -> (PK)
     %% Clave foránea de la futura base de datos -> (FK)
+    %% Clave única -> (UK)
 
     VIDEOJUEGO {
         int id_videojuego PK
-        int rawg_id
+        int rawg_id UK
         string name
-        string background_image
+        text background_image
         date fecha_lanzamiento
         int metacritic_rating
+        timestamp created_at
+        timestamp updated_at
     }
 
     GENERO {
         int id_genero PK
-        int rawg_genre_id
+        int rawg_genre_id UK
         string nombre
     }
 
     USUARIO {
         int id_usuario PK
-        string correo
+        string correo UK
         string nombre
         string apellido1
         string apellido2
-        string nombre_usuario
+        string nombre_usuario UK
         string password
+        text photo_url
+        timestamp created_at
+        timestamp updated_at
     }
 
     COLECCION {
@@ -35,61 +40,95 @@ erDiagram
         int id_usuario FK "Propietario"
         string nombre
         text descripcion
-        date fecha_creacion
-        date fecha_modificacion
+        timestamp fecha_creacion
+        timestamp fecha_modificacion
     }
 
     COMENTARIO_VIDEOJUEGO {
+        int id_comentario_videojuego PK
         int id_videojuego FK
         int id_usuario FK
         text comentario
         int cantidad_likes
         int cantidad_dislikes
         int valoracion_videojuego
+        timestamp created_at
     }
 
     COMENTARIO_COLECCION {
+        int id_comentario_coleccion PK
         int id_coleccion FK
         int id_usuario FK
         text comentario
         int cantidad_likes
         int cantidad_dislikes
         int valoracion_coleccion
+        timestamp created_at
     }
 
     USUARIO_LIKE_VIDEOJUEGO {
-        int id_videojuego FK
-        int id_usuario FK
+        int id_usuario PK,FK
+        int id_videojuego PK,FK
+        timestamp created_at
     }
 
     USUARIO_LIKE_COMENTARIO {
-        int id_comentario FK
-        int id_usuario FK
+        int id_usuario PK,FK
+        int id_comentario PK,FK
+        timestamp created_at
     }
 
     USUARIO_LIKE_COLECCION {
-        int id_coleccion FK
-        int id_usuario FK
+        int id_usuario PK,FK
+        int id_coleccion PK,FK
+        timestamp created_at
     }
 
     VIDEOJUEGO_COLECCION {
-        int id_videojuego FK
-        int id_coleccion FK
+        int id_videojuego PK,FK
+        int id_coleccion PK,FK
+        timestamp added_at
     }
 
     ASIGNACIONES_GENERO_VIDEOJUEGO {
-        int id_videojuego FK
-        int id_genero FK
+        int id_videojuego PK,FK
+        int id_genero PK,FK
     }
 
     FRIEND_REQUEST {
+        int id_friend_request PK
         int usuario_emisor FK
         int usuario_receptor FK
+        string status
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    AMISTADES {
+        int id_amistad PK
+        int usuario1_id FK
+        int usuario2_id FK
+        timestamp created_at
     }
 
     COLECCION_USUARIO {
+        int id_usuario PK,FK
+        int id_coleccion PK,FK
+    }
+
+    PREGUNTA_DIARIA {
+        int id_pregunta PK
+        date fecha UK
+        text pregunta
+        timestamp created_at
+    }
+
+    RESPUESTA_PREGUNTA_DIARIA {
+        int id_respuesta PK
+        int id_pregunta FK
         int id_usuario FK
-        int id_coleccion FK
+        text respuesta
+        timestamp created_at
     }
 
     %% Relaciones %%
@@ -108,6 +147,7 @@ erDiagram
     VIDEOJUEGO ||--o{ COMENTARIO_VIDEOJUEGO : "tiene_comentarios"
     VIDEOJUEGO ||--o{ ASIGNACIONES_GENERO_VIDEOJUEGO : "tiene_generos"
     VIDEOJUEGO ||--o{ VIDEOJUEGO_COLECCION : "pertenece_a"
+    VIDEOJUEGO ||--o{ USUARIO_LIKE_VIDEOJUEGO : "es_likeado"
 
     GENERO ||--o{ ASIGNACIONES_GENERO_VIDEOJUEGO : "asignado_a"
 
@@ -120,19 +160,26 @@ erDiagram
     COMENTARIO_VIDEOJUEGO ||--o{ USUARIO_LIKE_COMENTARIO : "es_likeado"
 
     %% Nota sobre USUARIO_LIKE_COLECCION:
-    %% Un usuario puede dar like a 0 o N colecciones, 
+    %% Un usuario puede dar like a 0 o N colecciones,
     %% de esta forma queremos guardar las colecciones que le gustan.
     COLECCION ||--o{ USUARIO_LIKE_COLECCION : "es_likeada"
 
-    %% Nota sobre FRIEND_RESQUEST:
+    %% Nota sobre FRIEND_REQUEST:
     %% Un usuario puede enviar una solicitud de amistad a 0 o N usuarios,
     %% y recibir, por lo tanto, de 0 a N solicitudes de amistad.
     USUARIO ||--o{ FRIEND_REQUEST : "envia_solicitud"
-    USUARIO ||--o{ FRIEND_REQUEST : "recibe_solicitud"
+    FRIEND_REQUEST }o--|| USUARIO : "recibe_solicitud"
+
+    %% Relaciones para la nueva tabla AMISTADES
+    USUARIO ||--o{ AMISTADES : "es_amigo_de"
+    AMISTADES }o--|| USUARIO : "con_usuario"
 
     %% Nota sobre COLECCION_USUARIO:
     %% Un usuario puede tener de 0 a N colecciones,
     %% queremos guardar todas las colecciones del usuario.
     USUARIO ||--o{ COLECCION_USUARIO : "asociado_a"
     COLECCION ||--o{ COLECCION_USUARIO : "tiene_asociacion"
-``` 
+
+    %% Relaciones para PREGUNTA_DIARIA y RESPUESTA_PREGUNTA_DIARIA
+    PREGUNTA_DIARIA ||--o{ RESPUESTA_PREGUNTA_DIARIA : "tiene_respuestas"
+    USUARIO ||--o{ RESPUESTA_PREGUNTA_DIARIA : "responde_a"
