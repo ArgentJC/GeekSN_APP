@@ -1,11 +1,19 @@
-const _authService = require('../services/authService');
-
 /**
  * @description Controlador para manejar las peticiones de autenticación de la aplicación.
  * @module authController
  * @requires module:services/authService
  */
-class authController {
+export class authController {
+
+    /**
+     * @description Crea una instancia del controlador de autenticación
+     * @param {Object} param0 - Dependencias del controlador
+     * @param {Object} param0.authService - Servicio de autenticación
+     */
+    constructor({ UsuarioModel }) {
+        this.UsuarioModel = UsuarioModel; // Asignamos el servicio de autenticación a una propiedad del controlador
+    }
+
     /**
      * @function register
      * @description Endpoint para registrar a un nuevo usuario dentro de nuestra aplicación.
@@ -20,7 +28,7 @@ class authController {
      * @returns {Object} Respuesta JSON que indica el éxito o fracaso del registro.
      * @throws {Error} Si ocurre un error interno del servidor.
      */
-    async register(req, res) {
+    register = async (req, res) => {
         const { username, password, email, nombre, apellido1, apellido2 } = req.body; // Recogemos los datos del usuario desde la request.
 
         // Comprobamos que los datos del usuario no sean nulos o no existen
@@ -39,8 +47,20 @@ class authController {
                 apellido2: apellido2
             };
 
-            // Llamamos al servicio de autenticación para registrar al nuevo usuario
-            const response = await _authService.register(_nuevoUsuario);
+            // Validar que el usuario no sea nulo
+            if (!_nuevoUsuario || !_nuevoUsuario.correo || !_nuevoUsuario.nombreUsuario || !_nuevoUsuario.password) {
+                return res.status(400).json({ message: "Alguno de los campos es nulo o no existe", success: false });
+            }
+            // Comprobar si el usuario ya existe en la base de datos
+            const existingUser = await this.UsuarioModel.getByIdentifier(usuario.correo) ||
+                await this.UsuarioModel.getByIdentifier(usuario.nombreUsuario);
+
+            if (existingUser) {
+                return res.status(400).json({ message: "EL usuario ya existe", success: false });
+            }
+
+            // Guardar el nuevo usuario
+            const data = await this.UsuarioModel.create(usuario);
 
             // Si la respuesta del servicio es exitorsa, devolvemos un mensaje de éxito con el nuevo usuario creado
             if (response.success) {
@@ -49,12 +69,10 @@ class authController {
             else { // Si la respuesta es errónea, devolvemos un mensaje de error con el motivo del fallo
                 return res.status(400).json({ message: response.message, success: false });
             }
+
         }
         catch (error) { // Si ocurre un error interno del servidor, devolvemos un mensaje de error genérico
             return res.status(500).json({ message: error.message, success: false });
         }
-
     }
 }
-
-module.exports = authController;
