@@ -4,10 +4,6 @@ body {
     background-image: url('../assets/background_login.jpg');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
-    min-height: 100vh; 
-    display: flex;
-    flex-direction: column;
 }
 
 .login-container {
@@ -25,6 +21,7 @@ body {
     margin-bottom: 2rem;
     color: #333;
     font-size: 1.8rem;
+    font-weight: bold;
 }
 
 .form-group {

@@ -1,12 +1,3 @@
-/* Estilo global para el cuerpo y el font */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
 /* Estilos para el navbar */
 
 .navbar {
