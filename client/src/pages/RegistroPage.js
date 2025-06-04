@@ -138,7 +138,8 @@ function RegistroPage() {
                 {success && <p className="text-green-500 mt-2">¡Registro exitoso!</p>}
 
                 <div className="links-container">
-                    <Link to="/login">¿Ya tienes cuenta? Inicia sesión</Link>
+                    <span>¿Ya tienes cuenta?</span>
+                    <Link to="/login">Inicia sesión</Link>
                 </div>
             </form>
         </div>
