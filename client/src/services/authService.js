@@ -1,3 +1,8 @@
+/**
+ * @description Servicio que hace la llamada a la API para conseguir registrar un usuario. Recoge todos los valores del forms y los envia como body de la request
+ * @param {*} user Usuario recogido desde el forms de registro
+ * @returns Devuelve la respuesta en formato json
+ */
 async function registerUser(user) {
     try {
         const response = await fetch('http://localhost:8080/api/auth/register', {
@@ -19,6 +24,11 @@ async function registerUser(user) {
     }
 }
 
+/**
+ * @description Servicio que se encarga de hacer la llamada a la API para controlar el login del usuario
+ * @param {*} credentials Credenciales de acceso del usuario: correo o nombre de usuario y contraseña
+ * @returns Devuelve la respuesta en formato json
+ */
 async function loginUser(credentials) {
     try {
         const response = await fetch('http://localhost:8080/api/auth/login', {
@@ -40,6 +50,12 @@ async function loginUser(credentials) {
     }
 }
 
+/**
+ * @description Funcion del servicio que se encarga de cambiar la contraseña del usuario
+ * @param {*} email Correo del usuario
+ * @param {*} newPassword Contraseña nueva introducida por el usuario
+ * @returns Devuelve la respuesta en formato json
+ */
 async function changePassword(email, newPassword) {
     try {
         const response = await fetch('http://localhost:8080/api/auth/change-password', {
@@ -61,4 +77,5 @@ async function changePassword(email, newPassword) {
     }
 }
 
-export { registerUser, loginUser, changePassword };
+// Exportamos los modulos del servicio para su uso en las Pages
+export { registerUser, loginUser, changePassword }; 
