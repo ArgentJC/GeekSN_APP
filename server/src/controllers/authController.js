@@ -52,15 +52,15 @@ export class authController {
                 return res.status(400).json({ message: "Alguno de los campos es nulo o no existe", success: false });
             }
             // Comprobar si el usuario ya existe en la base de datos
-            const existingUser = await this.UsuarioModel.getByIdentifier(usuario.correo) ||
-                await this.UsuarioModel.getByIdentifier(usuario.nombreUsuario);
+            const existingUser = await this.UsuarioModel.getByIdentifier(_nuevoUsuario.correo) ||
+                await this.UsuarioModel.getByIdentifier(_nuevoUsuario.nombreUsuario);
 
-            if (existingUser) {
+            if (existingUser.success == false) {
                 return res.status(400).json({ message: "EL usuario ya existe", success: false });
             }
 
             // Guardar el nuevo usuario
-            const data = await this.UsuarioModel.create(usuario);
+            const response = await this.UsuarioModel.create(_nuevoUsuario);
 
             // Si la respuesta del servicio es exitorsa, devolvemos un mensaje de éxito con el nuevo usuario creado
             if (response.success) {

@@ -4,6 +4,8 @@ import * as dotenv from 'dotenv'
 dotenv.config({ path: '../.env' });
 
 import { createAuthRouter } from './routes/authRoutes.js';
+import { UsuarioModel } from './models/UsuarioModel.js';
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -18,7 +20,7 @@ app.listen(PORT, () => {
 });
 
 // Rutas de la API
-app.use('/api/auth', createAuthRouter); // Usa las rutas de autenticación bajo el prefijo /api/auth
+app.use('/api/auth', createAuthRouter({ usuarioModel: UsuarioModel })); // Usa las rutas de autenticación bajo el prefijo /api/auth
 
 // Ruta de prueba inicial
 app.get('/', (req, res) => {
